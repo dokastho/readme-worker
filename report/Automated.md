@@ -4,7 +4,7 @@
 
 ### Manual VS Automated
 
-AFL was seeded with the same images that were used when manually testing coverage of libpng. AFL produced higher coverage: 40.52% compared to the 38.79% achieved with the manual set of images. In order to compile this test suite, AFL ran for 6 hours, 14 minutes and 17 seconds to produce 518 files. The generated images were a superset of the images from the manual test suite. This was verified by gcov: the coverage of the combined test suite of AFL-generated images and the manual images was 40.52%. The images in the automated test suite are identical to the images in the manual test suite in the common case.
+I seeded AFL with the same images that were used when manually testing coverage of libpng. AFL produced higher coverage: 40.52% compared to the 38.79% achieved with the manual set of images. In order to compile this test suite, AFL ran for 6 hours, 14 minutes and 17 seconds to produce 518 files. The generated images were a superset of the images from the manual test suite. This was verified by gcov: the coverage of the combined test suite of AFL-generated images and the manual images was 40.52%. The images in the automated test suite are identical to the images in the manual test suite in the common case.
 
 ### Interesting Images In Automated Test Suite
 
@@ -37,7 +37,7 @@ AFL was seeded with the same images that were used when manually testing coverag
 
 ### Manual VS Automated
 
-Evosuite produced results with varying degrees of efficacy compared to the integrated test suite for JSoup. Evosuite produced better branch coverage across the entire `org.jsoup.examples` class, and worse branch coverage across the entire `org.jsoup.parser` class. In the former example, the included test suite had 0% branch coverage, while in the latter it had 73%. There are other cases where Evosuite produced branch coverage within a class that the included test suite had none, such as `org.jsoup.HttpStatusException`. This suggests that Evosuite is best suited for coming up with test cases that have adequate but not excellent coverage in the common case.
+Evosuite produced results with varying degrees of efficacy compared to the integrated test suite for JSoup. Evosuite produced better branch coverage across the entire `org.jsoup.examples` class, and worse branch coverage across the entire `org.jsoup.parser` class. In the former example, the included test suite had 0% branch coverage, while in the latter it had 73%. There are other cases where Evosuite produced some percentage of branch coverage within a class that which the JSoup test suite had 0%, such as `org.jsoup.HttpStatusException`. This suggests that Evosuite is best suited for produceing test cases that have broadly adequate but not pricisely excellent coverage in the common case.
 
 ### Analysis of `org.jsoup.examples`
 
@@ -76,3 +76,5 @@ This is a random selection from a test case produced by Evosuite. Each value is 
 The automated test generators produce a higher volume of largely similar test cases. This can be described as having high breadth in generated tests, but not depth. This is optimal when testing a program that has characteristically low variation in functionality but a large variety input domain. The programs automatically generate lots of possible inputs that are apt for covering all possible test inputs for that function, which translates to a larger branch coverage for that function. 
 
 Automated test generators are not optimal when testing a program with high variation in functionality and any volume of input domain. The automated test cases struggle to produce a test suite with sufficient depth to cover each function within the program because the depth of test input variation remains low. In short, the test suites can produce good coverage for one use case but struggles to cover all use cases. When testing programs that match those characteristics, it would be better to write test cases manually, or give further direction to automated test generators. One such direction would be to apply the "high breadth, low depth" approach to each class individually.
+
+I would personally use these test cases in some limited capacity, however I think there are ways to improve them both. Augmenting the user experience with some vectorized input would be one improvement of both technologies and lead to increased usability in my opinion. It would in effect allow the user to direct the test suite to produce strictly higher results, because the user would always have the option of doing nothing and allowing the program to produce the same results; however the user could choose to provide some feedback and direct the program to produce a certain kind of test suite to achieve higher coverage with the user's insight. 
